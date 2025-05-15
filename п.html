@@ -1,0 +1,243 @@
+<!DOCTYPE html><html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>IamNotOst — Официальные аккаунты</title>
+  <style>
+    :root {
+      --bg-color: #0f0f0f;
+      --card-bg: #1a1a1a;
+      --accent: #ffffff;
+      --border: rgba(255, 255, 255, 0.15);
+      --glow: rgba(255, 255, 255, 0.05);
+    }* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--accent);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.card {
+  perspective: 1200px;
+  position: relative;
+  border-radius: 16px;
+  transition: transform 0.4s ease;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.card-inner {
+  width: 100%;
+  height: 180px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: var(--card-bg);
+  box-shadow: 0 0 8px var(--glow);
+}
+
+.card-front img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  margin-bottom: 0.6rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.card-front h3 {
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  text-align: center;
+  padding: 1rem;
+}
+
+.card-back p {
+  font-size: 0.75rem;
+  margin-bottom: 0.8rem;
+  opacity: 0.8;
+}
+
+.card-back a {
+  position: relative;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.75rem;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.card-back a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: skewX(-20deg);
+  animation: shimmer 2s infinite;
+}
+
+.card-back a::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  transform: translate(-50%, -50%) scale(0);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: pulse 3s infinite;
+  z-index: -1;
+}
+
+@keyframes shimmer {
+  0% { left: -75%; }
+  100% { left: 125%; }
+}
+
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+
+.card.expanded {
+  z-index: 20;
+}
+
+.card.expanded .card-inner {
+  transform: rotateY(180deg) scale(1.05);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.75rem;
+  opacity: 0.4;
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="overlay" id="overlay"></div>
+  <div class="container" id="container"></div>
+  <footer>
+    © Все права защищены. Made by IamNotOst
+  </footer>
+  <script>
+    const data = [
+      { title: "Telegram #1", img: "pic/telegram1.png", text: "@IamNotOst — офиц. аккаунт", link: "https://t.me/IamNotOst" },
+      { title: "Telegram #2", img: "pic/telegram2.png", text: "@OfficialOst — второй аккаунт", link: "https://t.me/OfficialOst" },
+      { title: "REDnote", img: "pic/rednote.png", text: "ID: IamNotOst", link: "#" },
+      { title: "Discord", img: "pic/discord.png", text: "Username: official.ost", link: null },
+      { title: "YouTube", img: "pic/youtube.png", text: "IamNotOst — канал", link: "https://youtube.com/@iamnotost?si=bGKBrPL9bTk1xXQ2" },
+      { title: "Blockman GO", img: "pic/blockmango.png", text: "Официальный аватар", link: null }
+    ];const container = document.getElementById('container');
+const overlay = document.getElementById('overlay');
+
+data.forEach((d, i) => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="${d.img}" alt="${d.title}" />
+        <h3>${d.title}</h3>
+      </div>
+      <div class="card-back">
+        <h3>${d.title}</h3>
+        <p>${d.text}</p>
+        ${d.link ? `<a href="${d.link}" target="_blank">Перейти</a>` : ''}
+      </div>
+    </div>
+  `;
+  container.appendChild(card);
+
+  card.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isExpanded = card.classList.contains('expanded');
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('expanded'));
+    if (!isExpanded) {
+      card.classList.add('expanded');
+      overlay.classList.add('active');
+    } else {
+      overlay.classList.remove('active');
+    }
+  });
+});
+
+overlay.addEventListener('click', () => {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('expanded'));
+  overlay.classList.remove('active');
+});
+
+  </script>
+</body>
+</html>
